@@ -10,6 +10,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import swal from 'sweetalert';
+import { RouterModule } from '@angular/router';  // Importar RouterModule
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ import swal from 'sweetalert';
   providers: [provideNativeDateAdapter()],
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule, MatCardModule, 
     MatSlideToggleModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule
+    MatFormFieldModule, MatInputModule, MatDatepickerModule,RouterModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
