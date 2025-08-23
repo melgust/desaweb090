@@ -1,1 +1,23 @@
-<p>person-edit works!</p>
+<h2 mat-dialog-title>{{ data ? 'Edit' : 'Add' }} Employee</h2>
+<form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="w‑100 mb‑3">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w‑100 mb‑3">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w‑100 mb‑3">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid">
+      {{ data ? 'Update' : 'Save' }}
+    </button>
+  </mat-dialog-actions>
+</form>
