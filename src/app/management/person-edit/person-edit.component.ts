@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { PersonService } from '../../services/person.service';
 import { Person } from '../../models/person';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-person-edit',
@@ -19,7 +20,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } fro
     MatButtonModule,
     MatDialogActions,
     MatDialogContent
-],
+  ],
   templateUrl: './person-edit.component.html',
   styleUrl: './person-edit.component.css'
 })
@@ -43,12 +44,21 @@ export class PersonEditComponent {
 
   onSubmit() {
     const val = this.personForm.value as Person;
-
-    if (this.data?.id) {
-      this.personService.update(this.data.id, val).subscribe(() => this.dialogRef.close(true));
-    } else {
-      this.personService.add(val).subscribe(() => this.dialogRef.close(true));
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          if (this.data?.id) {
+            this.personService.update(this.data.id, val).subscribe(() => this.dialogRef.close(true));
+          } else {
+            this.personService.add(val).subscribe(() => this.dialogRef.close(true));
+          }
+        }
+      });
   }
 
 }

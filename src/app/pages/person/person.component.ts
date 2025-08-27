@@ -51,10 +51,16 @@ export class PersonComponent {
   }
 
   loadPersons() {
-    this.PersonService.getAll().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.PersonService.getAll().subscribe({
+      next: (Response) => {
+        let data = Response;
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (error) => {
+        
+      }
     });
   }
 
