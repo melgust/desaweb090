@@ -9,8 +9,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 import swal from 'sweetalert';
 import { RouterModule } from '@angular/router';  // Importar RouterModule
+import { Item } from './models/item';
 
 @Component({
   selector: 'app-root',
@@ -18,39 +22,13 @@ import { RouterModule } from '@angular/router';  // Importar RouterModule
   providers: [provideNativeDateAdapter()],
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule, MatCardModule, 
     MatSlideToggleModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule,RouterModule
+    MatFormFieldModule, MatInputModule, MatDatepickerModule,RouterModule, MatButtonModule, MatDialogModule, MatTableModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Site 1';
-  form = this.fb.group({
-    message: ['', [Validators.required, Validators.minLength(5)]],
-  });
-
-  constructor(
-    private fb: FormBuilder,
-    private messageService: MessageService) {
-      
-    }
-
-  onSubmit() {
-    if (this.form.valid) {
-      let controls = this.form.controls;
-      let message = controls.message;
-      this.messageService.sendMessage("mensaje").subscribe({
-        next: (res) => {
-          console.log('✅ Message sent:', res);
-          this.form.reset();
-        },
-        error: (err) => console.error('❌ Error sending message:', err),
-      });
-    }
-  }
-
-  showMessage() {
-    swal("Good job!", "You clicked the button!", "success");
-  }
+  
 
 }
