@@ -2,14 +2,20 @@ import { Routes } from '@angular/router';
 import { PruebaComponent } from './24604/prueba/prueba.component';
 import { PersonEditComponent } from './management/person-edit/person-edit.component';
 import { PersonComponent } from './pages/person/person.component';
+import { ClientComponent } from './pages/client/client.component';
+import { Product } from './models/product';
+import { ProductsComponent } from './pages/products/products.component';
 
 export const routes: Routes = [
   {
     path: 'rolando',
     component: PruebaComponent
   },
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'persons', component: PersonComponent },
+        { path: 'client', component: ClientComponent },
+                { path: 'product', component: ProductsComponent }
+
+
 //   {
 //     path: '',
 //     redirectTo: 'persona',  
@@ -19,4 +25,4 @@ export const routes: Routes = [
 //     path: 'persona',  
 //     component: PersonEditComponent
 //   }
-
+]

@@ -4,46 +4,45 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PersonService } from '../../services/person.service';
-import { Person } from '../../models/person';
+import { Client } from '../../models/client';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import swal from 'sweetalert';
+import { ClientService } from '../../services/client.service';
 
 @Component({
-  selector: 'app-person-edit',
+  selector: 'app-client-edit',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [   CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatDialogActions,
-    MatDialogContent
-  ],
-  templateUrl: './person-edit.component.html',
-  styleUrl: './person-edit.component.css'
+    MatDialogContent],
+  templateUrl: './client-edit.component.html',
+  styleUrl: './client-edit.component.css'
 })
-export class PersonEditComponent {
-
-  private personService = inject(PersonService);
-  private dialogRef = inject(MatDialogRef<PersonEditComponent>);
+export class ClientEditComponent {
+private clientService = inject(ClientService);
+  private dialogRef = inject(MatDialogRef<ClientEditComponent>);
   private fb = inject(FormBuilder);
-  personForm: FormGroup;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Person) {
-    this.personForm = this.fb.group({
+  clientForm: FormGroup;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Client) {
+    this.clientForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      nit: ['', Validators.required],
+
     });
   }
 
   ngOnInit() {
-    if (this.data) this.personForm.patchValue(this.data);
+    if (this.data) this.clientForm.patchValue(this.data);
   }
 
   onSubmit() {
-    const val = this.personForm.value as Person;
+    const val = this.clientForm.value as Client;
     swal({
       title: "Seguro?",
       text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -53,12 +52,11 @@ export class PersonEditComponent {
       .then((willDelete) => {
         if (willDelete) {
           if (this.data?.id) {
-            this.personService.update(this.data.id, val).subscribe(() => this.dialogRef.close(true));
+            this.clientService.update(this.data.id, val).subscribe(() => this.dialogRef.close(true));
           } else {
-            this.personService.add(val).subscribe(() => this.dialogRef.close(true));
+            this.clientService.add(val).subscribe(() => this.dialogRef.close(true));
           }
         }
       });
   }
-
 }
