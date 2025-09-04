@@ -5,6 +5,7 @@ import { PersonComponent } from './pages/person/person.component';
 import { ClientComponent } from './pages/client/client.component';
 import { Product } from './models/product';
 import { ProductsComponent } from './pages/products/products.component';
+import { LoginComponent } from './24604/login/login.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,9 @@ export const routes: Routes = [
   },
     { path: 'persons', component: PersonComponent },
         { path: 'client', component: ClientComponent },
-                { path: 'product', component: ProductsComponent }
+                { path: 'product', component: ProductsComponent },
+
+                { path: 'login', component: LoginComponent }
 
 
 //   {
