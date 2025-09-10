@@ -15,6 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import swal from 'sweetalert';
 import { Item } from './models/item';
 import { RouterModule } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,11 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Site 1';
+  constructor(public auth: AuthService) {}
+
+  logout(): void {
+    this.auth.logout();
+  }
   
 
 }

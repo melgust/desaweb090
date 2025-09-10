@@ -16,12 +16,12 @@ export class PersonService {
     return this.http.get<Person[]>(this.apiUrl);
   }
 
-  add(emp: Person): Observable<Person> {
-    return this.http.post<Person>(this.apiUrl, emp);
+  add(person: Person): Observable<Person> {
+    return this.http.post<Person>(this.apiUrl, person);
   }
 
-  update(id: number, emp: Person): Observable<Person> {
-    return this.http.put<Person>(`${this.apiUrl}/${id}`, emp);
+  update(id: number, person: Person): Observable<Person> {
+    return this.http.put<Person>(`${this.apiUrl}/${id}`, person);
   }
 
   delete(id: number): Observable<any> {

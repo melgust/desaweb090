@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { PersonService } from '../../services/person.service';
 import { Person } from '../../models/person';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-person-edit',
@@ -44,21 +44,31 @@ export class PersonEditComponent {
 
   onSubmit() {
     const val = this.personForm.value as Person;
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      dangerMode: true,
-    })
-      .then((willDelete) => {
-        if (willDelete) {
-          if (this.data?.id) {
-            this.personService.update(this.data.id, val).subscribe(() => this.dialogRef.close(true));
-          } else {
-            this.personService.add(val).subscribe(() => this.dialogRef.close(true));
-          }
+    Swal.fire({
+      title: '¿Está seguro(a) de guardar la información? Esta acción no se podrá reversar.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.data?.id) {
+          this.personService.update(this.data.id, val).subscribe(() => this.dialogRef.close(true));
+        } else {
+          this.personService.add(val).subscribe(() => this.dialogRef.close(true));
         }
-      });
+      }
+    });
+  }
+
+  close(): void {
+    try {
+      this.dialogRef.close(false);
+    } catch (error) {
+
+    }
   }
 
 }
