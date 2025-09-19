@@ -6,13 +6,22 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { AuthInterceptor } from './app/interceptors/auth.interceptor';
+import { provideToastr } from 'ngx-toastr';
 
 bootstrapApplication(AppComponent, {
   ...appConfig,
   providers: [
     ...(appConfig.providers || []),
-    provideHttpClient(withInterceptors([AuthInterceptor])), provideAnimationsAsync(),
-    provideRouter(routes), provideAnimationsAsync()
+    provideHttpClient(withInterceptors([AuthInterceptor])), 
+    provideAnimationsAsync(),
+    provideRouter(routes),
+    provideToastr({
+      timeOut: 8000,
+      positionClass: 'toast-top-right',
+      closeButton: true,
+      progressBar: true,
+      preventDuplicates: true,
+    })
   ],
 })
   .catch((err) => console.error(err));
