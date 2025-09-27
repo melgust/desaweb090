@@ -9,9 +9,11 @@ import { Global } from './global';
 })
 export class PersonService {
 
-  private apiUrl = Global.url + '/person';
+  private apiUrl = "";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiUrl = Global.url + '/person';
+  }
 
   getAll(): Observable<Person[]> {
     return this.http.get<Person[]>(this.apiUrl);
